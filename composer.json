@@ -1,0 +1,41 @@
+{
+    "name": "dzunke/panaly-files",
+    "description": "A Panaly plugin that is analyzing a set of folders for their filesystem structure",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "DZunke\\PanalyFiles\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DZunke\\PanalyFiles\\Test\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Denis Zunke",
+            "email": "denis.zunke@gmail.com"
+        }
+    ],
+    "require": {
+        "dzunke/panaly": "dev-main",
+        "symfony/finder": "^7.0",
+        "php": "^8.3"
+    },
+    "require-dev": {
+        "doctrine/coding-standard": "^12.0",
+        "phpstan/phpstan": "^1.10",
+        "phpstan/phpstan-deprecation-rules": "^1.1",
+        "phpstan/phpstan-strict-rules": "^1.5",
+        "phpunit/phpunit": "^11.1"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}
