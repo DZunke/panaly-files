@@ -11,7 +11,7 @@ use Panaly\Plugin\BasePlugin;
 final class FilesPlugin extends BasePlugin
 {
     /** @inheritDoc */
-    public function getAvailableMetrics(): array
+    public function getAvailableMetrics(array $options): array
     {
         return [
             new DirectoryCount(),

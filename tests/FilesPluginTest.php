@@ -17,7 +17,7 @@ class FilesPluginTest extends TestCase
     public function testThatAllMetricsAreGiven(): void
     {
         $plugin  = new FilesPlugin();
-        $metrics = $plugin->getAvailableMetrics();
+        $metrics = $plugin->getAvailableMetrics([]);
 
         self::assertCount(2, $metrics);
         self::assertSame(
@@ -33,7 +33,7 @@ class FilesPluginTest extends TestCase
     {
         self::assertCount(
             0,
-            (new FilesPlugin())->getAvailableStorages(),
+            (new FilesPlugin())->getAvailableStorages([]),
         );
     }
 
@@ -41,7 +41,7 @@ class FilesPluginTest extends TestCase
     {
         self::assertCount(
             0,
-            (new FilesPlugin())->getAvailableReporting(),
+            (new FilesPlugin())->getAvailableReporting([]),
         );
     }
 }

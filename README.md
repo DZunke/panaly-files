@@ -29,7 +29,7 @@ options are available for the metric.
 
 ```yaml
 plugins:
-  - DZunke\PanalyFiles\FilesPlugin
+  DZunke\PanalyFiles\FilesPlugin: ~ # no options available
 
 groups:
     filesystem:
