@@ -6,6 +6,7 @@ namespace DZunke\PanalyFiles;
 
 use DZunke\PanalyFiles\Metric\DirectoryCount;
 use DZunke\PanalyFiles\Metric\FileCount;
+use DZunke\PanalyFiles\Metric\LargestFiles;
 use Panaly\Plugin\BasePlugin;
 
 final class FilesPlugin extends BasePlugin
@@ -16,6 +17,7 @@ final class FilesPlugin extends BasePlugin
         return [
             new DirectoryCount(),
             new FileCount(),
+            new LargestFiles(),
         ];
     }
 }

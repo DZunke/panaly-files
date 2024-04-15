@@ -25,11 +25,24 @@ options are available for the metric.
 | paths  | **(Required)** *Array* - The paths will be combined to a single count.                                                              | 
 | names  | **(Optional)** *Array* - A filter for the names of the files, the possible values are defined by the `Finder` component of symfony. |
 
+**Largest Files**
+
+The metric with the name `largest_files` is able to list the largest files that are given within the paths. 
+The Listing could also be filtered by a name and so will just return the largest files of specific filters like with 
+the file count. The resulting metric is of type `Table` with the columns `file` and `size`.
+
+| Option | Description                                                                                                                         |
+|--------|-------------------------------------------------------------------------------------------------------------------------------------|
+| paths  | **(Required)** *Array* - The paths will be combined to a single count.                                                              | 
+| names  | **(Optional)** *Array* - A filter for the names of the files, the possible values are defined by the `Finder` component of symfony. |
+| amount | **(Optional)** *Integer* *Default: 5* - The amount of files that should be listed in the result.                                    |
+
 ## Example Configuration
 
 ```yaml
+# panaly.dist.yaml
 plugins:
-  DZunke\PanalyFiles\FilesPlugin: ~ # no options available
+    DZunke\PanalyFiles\FilesPlugin: ~ # no options available
 
 groups:
     filesystem:
@@ -51,6 +64,15 @@ groups:
                 title: Test Directories
                 paths:
                     - tests
+            largest_php_files:
+                title: Largest PHP Files
+                metric: largest_files
+                amount: 3
+                paths:
+                    - src
+                    - tests
+                names:
+                    - "*.php"
 ```
 
 ## Thanks and License

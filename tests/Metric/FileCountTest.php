@@ -29,7 +29,7 @@ class FileCountTest extends TestCase
         $metric->calculate([]);
     }
 
-    public function testThatTheDirectoryCountOnUnknownPathsIsFailing(): void
+    public function testThatTheFileCountOnUnknownPathsIsFailing(): void
     {
         $this->expectException(InvalidOptionGiven::class);
         $this->expectExceptionMessage('The option "paths" contains paths that are not exists.');
@@ -38,7 +38,7 @@ class FileCountTest extends TestCase
         $metric->calculate(['paths' => ['foo', 'bar']]);
     }
 
-    public function testThatTheDirectoryCountAtAPathIsCorrect(): void
+    public function testThatTheFileCountAtAPathIsCorrect(): void
     {
         $metric    = new FileCount();
         $fileCount = $metric->calculate(['paths' => ['tests/Fixtures/FilesystemCount']]);
