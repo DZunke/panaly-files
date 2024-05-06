@@ -35,17 +35,6 @@ class LargestFilesTest extends TestCase
         $metric->calculate([]);
     }
 
-    public function testThatTheFileListingOnUnknownPathsIsFailing(): void
-    {
-        self::markTestSkipped('Skipped as globs are currently not supported, so a filter for is_dir is active');
-
-        /*$this->expectException(InvalidOptionGiven::class);
-        $this->expectExceptionMessage('The option "paths" contains paths that are not exists.');
-
-        $metric = new LargestFiles();
-        $metric->calculate(['paths' => ['foo', 'bar']]);*/
-    }
-
     public function testThatTheFileListingAtAPathIsCorrect(): void
     {
         $metric    = new LargestFiles();

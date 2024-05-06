@@ -6,7 +6,7 @@ namespace DZunke\PanalyFiles\Metric;
 
 use DZunke\PanalyFiles\Metric\Helper\FileFinder;
 use Panaly\Plugin\Plugin\Metric;
-use Panaly\Result\Metric\Integer;
+use Panaly\Result\Metric\IntegerValue;
 use Panaly\Result\Metric\Value;
 
 class FileCount implements Metric
@@ -25,6 +25,6 @@ class FileCount implements Metric
     {
         $finder = FileFinder::getFinderByOptions($options);
 
-        return new Integer($finder->count());
+        return new IntegerValue($finder->count());
     }
 }

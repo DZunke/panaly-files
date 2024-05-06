@@ -6,7 +6,7 @@ namespace DZunke\PanalyFiles\Metric;
 
 use DZunke\PanalyFiles\Metric\Exception\InvalidOptionGiven;
 use Panaly\Plugin\Plugin\Metric;
-use Panaly\Result\Metric\Integer;
+use Panaly\Result\Metric\IntegerValue;
 use Panaly\Result\Metric\Value;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
@@ -38,6 +38,6 @@ class DirectoryCount implements Metric
             throw InvalidOptionGiven::givenPathsNotExists($e);
         }
 
-        return new Integer($directoryCount);
+        return new IntegerValue($directoryCount);
     }
 }
