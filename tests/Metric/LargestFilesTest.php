@@ -47,7 +47,7 @@ class LargestFilesTest extends TestCase
                 ['tests/Fixtures/FilesystemCount/FirstDirectory/RecursiveDirectory/foo.php', 59],
                 ['tests/Fixtures/FilesystemCount/FirstDirectory/RecursiveDirectory/bar.js', 55],
             ],
-            $fileCount->compute(),
+            $fileCount->format(),
         );
     }
 
@@ -61,7 +61,7 @@ class LargestFilesTest extends TestCase
                 ['file', 'size'],
                 ['tests/Fixtures/FilesystemCount/SecondDirectory/foo.yaml', 411],
             ],
-            $fileCount->compute(),
+            $fileCount->format(),
         );
     }
 }

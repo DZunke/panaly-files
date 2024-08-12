@@ -34,7 +34,7 @@ class DirectoryCountTest extends TestCase
         $metric         = new DirectoryCount();
         $directoryCount = $metric->calculate(['paths' => ['tests/Fixtures/FilesystemCount']]);
 
-        self::assertSame(3, $directoryCount->compute());
+        self::assertSame(3, $directoryCount->format());
     }
 
     public function testThatTheDirectoryCountOnUnknownPathsIsFailing(): void

@@ -34,7 +34,7 @@ class FileCountTest extends TestCase
         $metric    = new FileCount();
         $fileCount = $metric->calculate(['paths' => ['tests/Fixtures/FilesystemCount']]);
 
-        self::assertSame(3, $fileCount->compute());
+        self::assertSame(3, $fileCount->format());
     }
 
     public function testThatFilteringForNamesWork(): void
@@ -45,6 +45,6 @@ class FileCountTest extends TestCase
             'names' => ['*.js', '*.yaml'],
         ]);
 
-        self::assertSame(2, $fileCount->compute());
+        self::assertSame(2, $fileCount->format());
     }
 }
