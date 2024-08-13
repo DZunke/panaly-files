@@ -18,6 +18,7 @@ final class FileFinder
     {
     }
 
+    /** @param mixed[] $options */
     public static function getFinderByOptions(array $options): Finder
     {
         if (! array_key_exists('paths', $options) || ! is_array($options['paths'])) {

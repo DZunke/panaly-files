@@ -6,7 +6,10 @@ namespace DZunke\PanalyFiles\Test\Metric;
 
 use DZunke\PanalyFiles\Metric\Exception\InvalidOptionGiven;
 use DZunke\PanalyFiles\Metric\LargestFiles;
+use Generator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 
 class LargestFilesTest extends TestCase
 {
@@ -43,9 +46,9 @@ class LargestFilesTest extends TestCase
         self::assertSame(
             [
                 ['file', 'size'],
-                ['tests/Fixtures/FilesystemCount/SecondDirectory/foo.yaml', 411],
-                ['tests/Fixtures/FilesystemCount/FirstDirectory/RecursiveDirectory/foo.php', 59],
-                ['tests/Fixtures/FilesystemCount/FirstDirectory/RecursiveDirectory/bar.js', 55],
+                ['tests/Fixtures/FilesystemCount/SecondDirectory/foo.yaml', '411 B'],
+                ['tests/Fixtures/FilesystemCount/FirstDirectory/RecursiveDirectory/foo.php', '59 B'],
+                ['tests/Fixtures/FilesystemCount/FirstDirectory/RecursiveDirectory/bar.js', '55 B'],
             ],
             $fileCount->format(),
         );
@@ -59,9 +62,27 @@ class LargestFilesTest extends TestCase
         self::assertSame(
             [
                 ['file', 'size'],
-                ['tests/Fixtures/FilesystemCount/SecondDirectory/foo.yaml', 411],
+                ['tests/Fixtures/FilesystemCount/SecondDirectory/foo.yaml', '411 B'],
             ],
             $fileCount->format(),
         );
+    }
+
+    #[DataProvider('fileSizeProvider')]
+    public function testFormatFileSize(int $size, string $expected): void
+    {
+        $methodReflection = new ReflectionMethod(LargestFiles::class, 'formatFileSize');
+        $largestFiles     = new LargestFiles();
+
+        self::assertSame($expected, $methodReflection->invoke($largestFiles, $size));
+    }
+
+    /** @return Generator<string, array{int, string}> */
+    public static function fileSizeProvider(): Generator
+    {
+        yield '1 GB' => [1_073_741_824, '1.00 GB'];
+        yield '1 MB' => [1_048_576, '1.00 MB'];
+        yield '1 KB' => [1_024, '1.00 KB'];
+        yield '512 B' => [512, '512 B'];
     }
 }
