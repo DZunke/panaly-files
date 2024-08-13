@@ -7,17 +7,20 @@ namespace DZunke\PanalyFiles;
 use DZunke\PanalyFiles\Metric\DirectoryCount;
 use DZunke\PanalyFiles\Metric\FileCount;
 use DZunke\PanalyFiles\Metric\LargestFiles;
-use Panaly\Plugin\BasePlugin;
+use Panaly\Configuration\ConfigurationFile;
+use Panaly\Configuration\RuntimeConfiguration;
+use Panaly\Plugin\Plugin;
 
-final class FilesPlugin extends BasePlugin
+final class FilesPlugin implements Plugin
 {
     /** @inheritDoc */
-    public function getAvailableMetrics(array $options): array
-    {
-        return [
-            new DirectoryCount(),
-            new FileCount(),
-            new LargestFiles(),
-        ];
+    public function initialize(
+        ConfigurationFile $configurationFile,
+        RuntimeConfiguration $runtimeConfiguration,
+        array $options,
+    ): void {
+        $runtimeConfiguration->addMetric(new DirectoryCount());
+        $runtimeConfiguration->addMetric(new FileCount());
+        $runtimeConfiguration->addMetric(new LargestFiles());
     }
 }

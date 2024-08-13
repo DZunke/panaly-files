@@ -8,41 +8,30 @@ use DZunke\PanalyFiles\FilesPlugin;
 use DZunke\PanalyFiles\Metric\DirectoryCount;
 use DZunke\PanalyFiles\Metric\FileCount;
 use DZunke\PanalyFiles\Metric\LargestFiles;
-use Panaly\Plugin\Plugin\Metric;
+use Panaly\Configuration\ConfigurationFile;
+use Panaly\Configuration\RuntimeConfiguration;
 use PHPUnit\Framework\TestCase;
-
-use function array_map;
 
 class FilesPluginTest extends TestCase
 {
     public function testThatAllMetricsAreGiven(): void
     {
-        $plugin  = new FilesPlugin();
-        $metrics = $plugin->getAvailableMetrics([]);
+        $configurationFile    = $this->createMock(ConfigurationFile::class);
+        $runtimeConfiguration = $this->createMock(RuntimeConfiguration::class);
 
-        self::assertCount(3, $metrics);
-        self::assertSame(
-            [DirectoryCount::class, FileCount::class, LargestFiles::class],
-            array_map(
-                static fn (Metric $metric) => $metric::class,
-                $metrics,
-            ),
-        );
-    }
+        $matcher = $this->exactly(3);
 
-    public function testThatThereIsNoStorageGiven(): void
-    {
-        self::assertCount(
-            0,
-            (new FilesPlugin())->getAvailableStorages([]),
-        );
-    }
+        $runtimeConfiguration->expects($matcher)
+            ->method('addMetric')
+            ->willReturnCallback(static function (object $metric) use ($matcher): void {
+                match ($matcher->numberOfInvocations()) {
+                    1 => self::assertInstanceOf(DirectoryCount::class, $metric),
+                    2 => self::assertInstanceOf(FileCount::class, $metric),
+                    3 => self::assertInstanceOf(LargestFiles::class, $metric),
+                    default => self::fail('Too much is going on here!'),
+                };
+            });
 
-    public function testThatThereIsNoReportingGiven(): void
-    {
-        self::assertCount(
-            0,
-            (new FilesPlugin())->getAvailableReporting([]),
-        );
+        (new FilesPlugin())->initialize($configurationFile, $runtimeConfiguration, []);
     }
 }
